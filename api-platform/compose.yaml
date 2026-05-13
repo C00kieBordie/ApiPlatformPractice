@@ -36,6 +36,19 @@ services:
     image: ${IMAGES_PREFIX:-}app-pwa
     environment:
       NEXT_PUBLIC_ENTRYPOINT: http://php
+    ports:
+      # HTTP
+      - target: 3000
+        published: ${PWA_PORT:-3000}
+        protocol: tcp
+      # HTTPS (if using HTTPS locally)
+      - target: 3443
+        published: ${PWA_HTTPS_PORT:-3443}
+        protocol: tcp
+    volumes:
+      # Mount certificates for HTTPS
+      - ./pwa/localhost.crt:/srv/app/localhost.crt:ro
+      - ./pwa/localhost.key:/srv/app/localhost.key:ro
 
 ###> doctrine/doctrine-bundle ###
   database:
