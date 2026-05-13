@@ -24,7 +24,7 @@ COPY package.json pnpm-lock.yaml* package-lock.json* ./
 
 RUN npm install || true
 
-CMD ["sh", "-c", "npm install && npm run dev"]
+CMD ["sh", "-c", "npm install --legacy-peer-deps --no-save || npm install --force; npm run dev"]
 
 FROM base AS builder
 
